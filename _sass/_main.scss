@@ -1,0 +1,36 @@
+
+.site-title {
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 56px;
+    letter-spacing: -1px;
+    margin-bottom: 0;
+    float: left;
+    text-decoration: none;
+
+    color: $sab-text-color;
+    @include transition(color .3s ease);
+    &:visited {
+        color: $sab-text-color;
+        text-decoration: none;
+    }
+    &:hover {
+        color: $sab-text-hover;
+        text-decoration: none;
+    }
+}
+
+.sab-centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sab-title {
+    width: 100%; height: 100px;
+
+    text-align: center;
+    font-size: 22pt;
+    font-weight: bold;
+}

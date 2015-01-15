@@ -48,11 +48,11 @@ $on-laptop:        800px;
 
 // Using transition mixin to make life easier
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
 }
 
 // Import partials from `sass_dir` (defaults to `_sass`)
