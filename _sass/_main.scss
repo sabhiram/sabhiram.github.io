@@ -31,7 +31,9 @@
     text-decoration: none;
     color: $sab-text-color;
 
+    @include user-select(none);
     @include transition(color 0.3s ease);
+
     &:visited {
         color: $sab-text-color;
     }
@@ -66,6 +68,8 @@
     margin-top: 120px;
 
     width: 100%;
+
+    @include user-select(none);
 }
 
 ul.sab-ul-inline {
