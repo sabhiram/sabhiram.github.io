@@ -31,7 +31,7 @@
     text-decoration: none;
     color: $sab-text-color;
 
-    @include transition(color .3s ease);
+    @include transition(color 0.3s ease);
     &:visited {
         color: $sab-text-color;
     }
@@ -44,19 +44,19 @@
     content: "mail@";
     font-size: 1.00rem;
     color: $background-color;
-    @include transition(color .3s ease);
+    @include transition(color 0.3s ease);
 }
 .sab-link.mailto:after {
     content: ".com";
     font-size: 1.00rem;
     color: $background-color;
-    @include transition(color .3s ease);
+    @include transition(color 0.3s ease);
 }
 .sab-link.mailto:hover:before {
-    color: $sab-light-text-color;
+    color: $sab-popup-text-color;
 }
 .sab-link.mailto:hover:after {
-    color: $sab-light-text-color;
+    color: $sab-popup-text-color;
 }
 /*
     Nav styling
@@ -81,7 +81,7 @@ ul.sab-ul-inline li a {
     color: $sab-text-color;
     font-size: 1.3rem;
 
-    @include transition(color .3s ease);
+    @include transition(color 0.3s ease);
     &:visited {
         color: $sab-text-color;
     }
@@ -102,21 +102,21 @@ ul.sab-ul-inline li a {
     position: absolute;
     top: -25px;
     color: $background-color;
-    @include transition(color .3s ease);
+    @include transition(color 0.3s ease);
 }
 .fa-main-link:after {
     content: "";
     position: absolute;
     top: 120%;
     color: $background-color;
-    @include transition(color .3s ease);
+    @include transition(color 0.3s ease);
 }
 .fa-main-link:hover:before {
-    color: $sab-text-color;
+    color: $sab-popup-text-color;
 }
 .fa-main-link:hover:after {
     font-size: 1.0rem;
-    color: $sab-light-text-color;
+    color: $sab-popup-text-color;
 }
 
 
