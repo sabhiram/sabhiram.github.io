@@ -1,18 +1,39 @@
+/*
+    Style for the index page, full screen container
+    and misc other minor css
+*/
+.sab-fs-container {
+    min-height: 100vh;
+    position: relative;
 
-.site-title {
-    font-size: 26px;
-    font-weight: bold;
-    line-height: 56px;
-    letter-spacing: -1px;
-    margin-bottom: 0;
-    float: left;
+    background: $background-color;
+    color: $text-color;
+}
+
+.sab-fs-container .wrapper {
+    position: absolute;
+    left: 0; right: 0;
+    top: 32%;
+
+    text-align: left;
+}
+
+.container {
+    position: relative;
+    margin: 0 auto;
+    max-width: $content-width;
+    height: 100%;
+
+    padding: 10px;
+}
+
+.sab-link {
     text-decoration: none;
-
     color: $sab-text-color;
+
     @include transition(color .3s ease);
     &:visited {
         color: $sab-text-color;
-        text-decoration: none;
     }
     &:hover {
         color: $sab-text-hover;
@@ -20,17 +41,103 @@
     }
 }
 
-.sab-centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/*
+    Nav styling
+*/
+.container nav {
+    position: absolute;
+    top: 300%;
+
+    width: 100%;
 }
 
-.sab-title {
-    width: 100%; height: 100px;
+ul.sab-ul-inline {
+    list-style-type: none;
+    padding: 0; margin: 0;
+}
+ul.sab-ul-inline li {
+    display: inline-block;
+    padding: 1px;
+}
+ul.sab-ul-inline li a {
+    text-decoration: none;
+    color: $sab-text-color;
+    font-size: 1.3rem;
 
-    text-align: center;
-    font-size: 22pt;
-    font-weight: bold;
+    @include transition(color .3s ease);
+    &:visited {
+        color: $sab-text-color;
+    }
+    &:hover {
+        color: $sab-text-hover;
+        text-decoration: none;
+    }
+}
+
+.fa-main-link:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+
+    content: "";
+    position: absolute;
+    top: -25px;
+    color: $background-color;
+    @include transition(color .3s ease);
+}
+.fa-main-link:after {
+    content: "";
+    position: absolute;
+    top: 120%;
+    color: $background-color;
+    @include transition(color .3s ease);
+}
+.fa-main-link:hover:before {
+    color: $sab-text-color;
+}
+.fa-main-link:hover:after {
+    font-size: 1.0rem;
+    color: $sab-light-text-color;
+}
+
+
+#mainThoughts:before {
+    left: 40px;
+}
+#mainThoughts:hover:before {
+    content: "\f044";
+}
+#mainThoughts:after {
+    left: 40%;
+}
+#mainThoughts:hover:after {
+    content: "my scribbles";
+}
+
+#mainAbout:before {
+    left: 114px;
+}
+#mainAbout:hover:before {
+    content: "\f1fa";
+}
+#mainAbout:after {
+    left: 40%;
+}
+#mainAbout:hover:after {
+    content: "whoami?";
+}
+
+#mainStuff:before {
+    left: 168px;
+}
+#mainStuff:hover:before {
+    content: "\f09b";
+}
+#mainStuff:after {
+    left: 40%;
+}
+#mainStuff:hover:after {
+    content: "my github repos";
 }
