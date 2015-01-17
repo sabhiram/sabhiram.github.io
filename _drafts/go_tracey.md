@@ -5,13 +5,11 @@ categories: Go
 tags: Go
 ---
 
-Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got to messing around with it. I wrote a couple of simple library functions and decided that I wanted to build a function tracing library.
+Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions and decided that I wanted to build a function tracing library.
 
 The following is an attempt to document my previously stated journey. Be warned, I have only been `Go`ing for the better part of the week.
 
-Ok, so lets say we have the following code:
-
-*foo.go*
+Ok, so lets say we have the following code in file *foo.go*:
 {% highlight go %}
 package main
 import "fmt"
@@ -53,7 +51,7 @@ Thankfully `Go` provides us with this nifty [`defer` statement](https://golang.o
 
 *"Each time a "defer" statement executes, the function value and parameters to the call are evaluated as usual and saved anew but the actual function is not invoked. Instead, deferred functions are invoked immediately before the surrounding function returns, in the reverse order they were deferred"*
 
-Ahh, so if we `defer` something immediately after we enter a function, then `Go` will invoke said deferred function once the function we are executing returns. This is really cool! Without this, we would have to cover every returning branch of code with the exit message. Ok, so lets take another stab at our code, enriched with the power of `defer`:
+Ahh, so if we `defer` something immediately after we enter a function, then `Go` will invoke said deferred statement once the function we are executing returns. This is really cool! Without this, we would have to cover every returning branch of code with the exit message. Ok, so lets take another stab at our code, enriched with the power of `defer`:
 
 *foo.go*
 {% highlight go %}
@@ -82,3 +80,20 @@ func main() {
     foo(2)
 }
 {% endhighlight %}
+
+This produces:
+{% highlight sh %}
+$ go run foo.go
+Entering main()
+Entering foo(2)
+Entering bar(1)
+Entering foo(1)
+Entering bar(0)
+Entering foo(0)
+Exiting foo(0)
+Exiting bar(0)
+Exiting foo(1)
+Exiting bar(1)
+Exiting foo(2)
+Exiting main()
+{% endhighlight sh %}

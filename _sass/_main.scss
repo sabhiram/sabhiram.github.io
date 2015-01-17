@@ -162,3 +162,10 @@ ul.sab-ul-inline li a {
 #mainStuff:hover:after {
     content: "my github stuff";
 }
+
+.footer-img-div {
+    position: fixed;
+
+    bottom: 0; right: 0;
+    z-index: 1000;
+}
