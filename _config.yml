@@ -9,4 +9,5 @@ twitter_username: sabhiram
 github_username:  sabhiram
 
 # Build settings
-markdown: kramdown
+kramdown:
+  input: GFM
