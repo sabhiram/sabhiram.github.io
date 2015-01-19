@@ -169,3 +169,36 @@ ul.sab-ul-inline li a {
     bottom: 0; right: 0;
     z-index: 1000;
 }
+
+.sab-page-back {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+    user-select: none;
+
+    @include border-radius(0 0 80px 0);
+    @include transition(all 0.3s ease);
+
+    &:hover {
+        background: $sab-text-alt;
+    }
+
+    display: block;
+    position: fixed;
+
+    @include media-query($squished-nav-min) {
+        position: relative;
+    }
+
+}
+.sab-page-back i {
+    padding-top: 10px;
+    padding-left: 10px;
+    color: $button-text;
+}
+.sab-page-back:hover i {
+    color: $button-text-selected;
+}

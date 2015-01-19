@@ -16,20 +16,24 @@ $spacing-unit:     30px;
 
 $text-color:       #000000;
 $background-color: #ffffff;
+
 $brand-color:      #2a7ae2;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
-
+$button-text-selected: $background-color;
+$button-text: $text-color;
 
 $sab-text-color:        #000000;
 $sab-popup-text-color:  #999999;
 
 $sab-text-alt:          #039be5;
-$sab-code-color:        lighten($sab-text-alt, 53%);
-$sab-code-border:       lighten($sab-text-alt, 51%);
+$sab-text-alt-light:    lighten($sab-text-alt, 30%);
+
+$sab-code-color:        darken(#ffffff, 1%);
+$sab-code-border:       darken(#ffffff, 20%);
 $sab-code-text-color:   #111111;
 
 
@@ -38,6 +42,7 @@ $content-width:    800px;
 
 $on-palm:          600px;
 $on-laptop:        800px;
+$squished-nav-min: 920px;
 
 // Using media queries with like this:
 // @include media-query($on-palm) {
@@ -66,6 +71,13 @@ $on-laptop:        800px;
     -moz-user-select:    $args;
     -webkit-user-select: $args;
     -ms-user-select:     $args;
+}
+
+// border radius mixin
+@mixin border-radius($args...) {
+    border-radius:         $args;
+    -moz-border-radius:    $args;
+    -webkit-border-radius: $args;
 }
 
 // Import partials from `sass_dir` (defaults to `_sass`)
