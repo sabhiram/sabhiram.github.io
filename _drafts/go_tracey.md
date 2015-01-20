@@ -36,7 +36,7 @@ func main() {
 }
 {% endhighlight %}
 
-Running the code above with `$go run foo.go` would produce something eerily similar to this:
+Running the code above with `go run foo.go` would produce something eerily similar to this:
 {% highlight sh %}
 $ go run foo.go
 Entering main
@@ -86,7 +86,7 @@ func main() {
 }
 {% endhighlight %}
 
-`$go run foo.go` produces:
+Now `go run foo.go` produces:
 {% highlight sh %}
 $ go run foo.go
 Entering main()
@@ -109,7 +109,7 @@ Great! We avoided having to print an exit statement for each branch which return
 
 
 
-### <u>Goal 3:</u> One for the price of Two
+### <u>Goal 3:</u> One* for the price of Two
 
 ### <u>Goal 4:</u> Pulling it all into a Library
 

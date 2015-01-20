@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html>
 
-  {% include head.html %}
-
-  <body>
+{% include head.html %}
+<body>
 
     {% include header.html %}
 
-    <a class = "sab-page-back" href="/posts">
-      <i class = "fa fa-3x fa-arrow-left"></i>
+    <a class = "sab-page-back"
+       href = "/posts">
+        <i class = "fa fa-3x fa-arrow-left"></i>
     </a>
 
-    <div class="page-content">
-      <div class="wrapper">
-        <div class="post">
+    <div class = "sab-page-nav">
+        <a class = "sab-nav-item"
+           href  = "/about">
+           <i class = "fa fa-github"></i>
+        </a>
+        <a class = "sab-nav-item"
+           href  = "/about">
+           <i class = "fa fa-github"></i>
+        </a>
+    </div>
 
-          <header class="post-header">
-            <h1 class="post-title">{{ page.title }}</h1>
-            <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-          </header>
+    <div class = "page-content">
+        <div class = "wrapper">
+            <div class = "post">
 
-          <article class="post-content">
-            {{ content }}
-          </article>
+                <header class = "post-header">
+                    <h1 class = "post-title">{{ page.title }}</h1>
+                    <p class = "post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+                </header>
 
+                <article class = "post-content">
+                {{ content }}
+                </article>
+
+            </div>
         </div>
-      </div>
     </div>
 
     {% include footer.html %}
 
-  </body>
-
+</body>
 </html>
