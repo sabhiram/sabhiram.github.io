@@ -103,11 +103,24 @@ Exiting foo(2)
 Exiting main()
 {% endhighlight sh %}
 
-Great! We avoided having to print an exit statement for each branch which returned from the function. So now logic dictates that typing two ugly `fmt.Printf(..)` statements in each and every function is kind of overkill (and rather gross). 
+Great! We avoided having to print an exit statement for each branch which returned from the function. Wouldn't it be nice if we did not have to explicitly name the function in our `fmt.Printf(..)` statements?
 
 ### <u>Goal 2:</u> Avoid having to specify the function name
 
+First, let us re-factor these print statements into a couple of helper functions. So we would now have something like this in *foo.go*:
+{% highlight go %}
+func _enter() {
+    ... some code to print the function enter message
+}
 
+func _exit() {
+    ... some code to print the function exit message
+}
+{% endhighlight %}
+
+
+
+So now logic dictates that typing two ugly `fmt.Printf(..)` statements in each and every function is kind of overkill (and rather gross). 
 
 ### <u>Goal 3:</u> One* for the price of Two
 
