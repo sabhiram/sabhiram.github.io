@@ -159,6 +159,8 @@ blockquote {
     letter-spacing: -1px;
     font-style: italic;
 
+    line-height: $code-line-height;
+
     > :last-child {
         margin-bottom: 0;
     }
@@ -176,6 +178,7 @@ code {
     border-radius: 2px;
     background-color: $sab-code-color;
     color: $sab-code-text-color;
+    line-height: $code-line-height;
 }
 
 code {
