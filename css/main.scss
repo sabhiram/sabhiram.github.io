@@ -10,7 +10,7 @@
 $base-font-family: "PT Serif", Georgia, "Times New Roman", serif;
 $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-line-height: 1.7;
 
 $spacing-unit:     30px;
 
@@ -32,8 +32,8 @@ $sab-popup-text-color:  #999999;
 $sab-text-alt:          #039be5;
 $sab-text-alt-light:    lighten($sab-text-alt, 30%);
 
-$sab-code-color:        darken(#ffffff, 1%);
-$sab-code-border:       darken(#ffffff, 20%);
+$sab-code-color:        darken(#ffffff, 7%);
+$sab-code-border:       darken(#ffffff, 30%);
 $sab-code-text-color:   #111111;
 
 

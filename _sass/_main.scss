@@ -164,13 +164,10 @@ ul.sab-ul-inline li a {
     content: "my github stuff";
 }
 
-.footer-img-div {
-    position: fixed;
 
-    bottom: 0; right: 0;
-    z-index: 1000;
-}
-
+/*
+    Style for the POST pages / back button
+*/
 .sab-page-back {
     width: 80px;
     height: 80px;

@@ -5,7 +5,7 @@ categories: Go
 tags: Go
 ---
 
-Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions and decided that I wanted to build a function tracing library.
+Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in `Go` code.
 
 The following is an attempt to document my previously stated journey. Be warned, I have only been `Go`ing for the better part of the week.
 
@@ -51,7 +51,7 @@ The above gets us logging when a function is entered. What if we also wanted to 
 
 Clearly, the naive approach here would be to just tag the **Enter** of a function on function entry (as we did), and then tag the **Exit** before any branches which invoke a return. Even thinking about that makes me feel icky.
 
-Thankfully `Go` provides us with this nifty [`defer` statement](https://golang.org/ref/spec#Defer_statements), which we just might have to abuse a little.
+Thankfully `Go` provides us with this nifty [`defer statement`](https://golang.org/ref/spec#Defer_statements), which we just might have to abuse a little.
 
 From the documentation for `defer`:
 *"Each time a "defer" statement executes, the function value and parameters to the call are evaluated as usual and saved anew but the actual function is not invoked. Instead, deferred functions are invoked immediately before the surrounding function returns, in the reverse order they were deferred"*
@@ -99,7 +99,7 @@ Exiting foo(1)
 Exiting main()
 {% endhighlight %}
 
-Great! We avoided having to print an exit statement for each branch which returned from the function. Wouldn't it be nice if we did not have to explicitly name the function in our `fmt.Printf(..)` statements?
+Great! We avoided having to print an exit statement for each branch which returned from the function. Wouldn't it be nice if we did not have to explicitly name the function in our `fmt.Printf()` statements?
 
 ### Extracting Function Names (at runtime)
 
@@ -117,9 +117,9 @@ func getFnName() string {
 }
 {% endhighlight %}
 
-The above code uses the packages `runtime` and `regexp`. Note that we pass `1` to `runtime.Caller(...)`, this is done to skip the current function's program counter. You can read all about the `runtime.Caller()` function [here](http://golang.org/pkg/runtime/#Caller).
+The above code also uses the [`regexp`](http://golang.org/pkg/regexp/) package. Note that we pass `1` to `runtime.Caller()`, this is done to skip the current function's program counter. You can read all about [`runtime.Caller()`](http://golang.org/pkg/runtime/#Caller) function.
 
-After that, we fetch the [`Func` object](http://golang.org/pkg/runtime/#Func) by means of the `FuncForPC()` method. A `Func` object contains finer details about the function pointed to by the appropriate `pc`. Finally, since `Func.Name()` returns a decorated name, we do some parsing to fetch just the parent's "name" as we defined it.
+After that, we fetch the [`Func object`](http://golang.org/pkg/runtime/#Func) by means of the `FuncForPC()` method. A `Func` object contains finer details about the function pointed to by the appropriate `pc`. Finally, since `Func.Name()` returns a decorated name, we do some parsing to fetch just the parent's "name" as we defined it.
 
 We also probably don't want a bunch of `fmt.Printf(getFunctionName())` statements littering our code, so lets write little nifty `_enter()` and `_exit()` functions. Here is an updated *foo.go*:
 
@@ -194,7 +194,7 @@ Exiting  main
 
 Seems like we lost the parameter logging, we will re-visit that later. Also, being the keen reader, and disciplined coder you are, the copy-pasted section in `_enter()` and `_exit()` is probably irking you. Good, we are on the same page.
 
-One option to remedy the above issue is to invoke another helper function to simply fetch the caller's caller's name (change the "skip" in `runtime.Caller(..)` from `1` to `2`), another option is explored below.
+One option to remedy the above issue is to invoke another helper function to simply fetch the caller's caller's name (change the "skip" in `runtime.Caller()` from `1` to `2`), another option is explored below.
 
 ### One* for the price of Two
 
