@@ -5,7 +5,7 @@ categories: Go
 tags: Go
 ---
 
-Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in `Go` code.
+Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in `Go`.
 
 The following is an attempt to document my previously stated journey. Be warned, I have only been `Go`ing for the better part of the week.
 
@@ -45,7 +45,7 @@ Entering bar(0)
 Entering foo(0)
 {% endhighlight %}
 
-The above gets us logging when a function is entered. What if we also wanted to know when it returns? What if we wanted to visualize the nesting of calls?
+The above code just prints function names on entry (how boring). What if we also wanted to log the function exit? What if we wanted to visualize the nesting of calls?
 
 ### Track Function Enter / Exit (... easily)
 
@@ -117,7 +117,7 @@ func getFnName() string {
 }
 {% endhighlight %}
 
-The above code also uses the [`regexp`](http://golang.org/pkg/regexp/) package. Note that we pass `1` to `runtime.Caller()`, this is done to skip the current function's program counter. You can read all about [`runtime.Caller()`](http://golang.org/pkg/runtime/#Caller) function.
+The above code also uses the [`regexp`](http://golang.org/pkg/regexp/) package. Note that we pass `1` to `runtime.Caller()`, this is done to skip the current function's program counter. You can read all about the [`runtime.Caller()`](http://golang.org/pkg/runtime/#Caller) function.
 
 After that, we fetch the [`Func object`](http://golang.org/pkg/runtime/#Func) by means of the `FuncForPC()` method. A `Func` object contains finer details about the function pointed to by the appropriate `pc`. Finally, since `Func.Name()` returns a decorated name, we do some parsing to fetch just the parent's "name" as we defined it.
 
