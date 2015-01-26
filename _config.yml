@@ -10,12 +10,14 @@ github_username:  sabhiram
 
 # Build settings
 kramdown:
-  input: GFM
+    input: GFM
 
 defaults:
   -
     scope:
-      path: ""
-      type: "posts"
+        path: ""
+        type: "posts"
     values:
-      layout: "post"
+        layout: "post"
+        openQuote: "<div class='sab-quote'>"
+        closeQuote: "</div>"

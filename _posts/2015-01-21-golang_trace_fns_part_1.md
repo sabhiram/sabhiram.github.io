@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Go Function Tracing, Part I"
 categories: Go
 tags: Go
@@ -55,7 +54,10 @@ Clearly, the naive approach here would be to just tag the **Enter** of a functio
 Thankfully `Go` provides us with this nifty [`defer statement`](https://golang.org/ref/spec#Defer_statements), which we just might have to abuse a little.
 
 From the documentation for `defer`:
-*"Each time a "defer" statement executes, the function value and parameters to the call are evaluated as usual and saved anew but the actual function is not invoked. Instead, deferred functions are invoked immediately before the surrounding function returns, in the reverse order they were deferred"*
+
+{{ page.openQuote }}
+Each time a "defer" statement executes, the function value and parameters to the call are evaluated as usual and saved anew but the actual function is not invoked. Instead, deferred functions are invoked immediately before the surrounding function returns, in the reverse order they were deferred
+{{ page.closeQuote }}
 
 So if we `defer` something immediately after we enter a function, then `Go` will invoke said deferred statement once the function we are executing returns. This is really cool! Without this, we would have to cover every returning branch of code with the exit message.
 
