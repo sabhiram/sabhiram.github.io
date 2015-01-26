@@ -3,6 +3,7 @@ layout: post
 title: "Go Function Tracing, Part I"
 categories: Go
 tags: Go
+enableChat: true
 ---
 
 Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in `Go`.
@@ -279,3 +280,4 @@ Sweet! Hope that was informative.
 2. Adding padding to visualize function nesting
 3. Extend the trace code with options, custom logging
 4. No-op the trace code when you don't need it
+

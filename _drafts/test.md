@@ -3,6 +3,7 @@ layout: post
 title: "Test post"
 categories: 
 tags: 
+enableChat: false
 ---
 
 Foo bar baz
