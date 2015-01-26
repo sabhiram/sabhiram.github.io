@@ -215,5 +215,11 @@ ul.sab-ul-inline li a {
     overflow-x: auto;
 
     border-left: 10px solid $sab-text-alt;
+
+    // Fix <b> tag inside a quote
+    & b {
+        color: $grey-color-dark;
+    }
 }
+
 

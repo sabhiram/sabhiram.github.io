@@ -56,7 +56,7 @@ Thankfully `Go` provides us with this nifty [`defer statement`](https://golang.o
 From the documentation for `defer`:
 
 {{ page.openQuote }}
-Each time a "defer" statement executes, the function value and parameters to the call are evaluated as usual and saved anew but the actual function is not invoked. Instead, deferred functions are invoked immediately before the surrounding function returns, in the reverse order they were deferred
+Each time a <b>defer</b> statement executes, the function value and parameters to the call are evaluated as usual and saved anew but the actual function is not invoked. Instead, deferred functions are invoked immediately before the surrounding function returns, in the reverse order they were deferred
 {{ page.closeQuote }}
 
 So if we `defer` something immediately after we enter a function, then `Go` will invoke said deferred statement once the function we are executing returns. This is really cool! Without this, we would have to cover every returning branch of code with the exit message.
