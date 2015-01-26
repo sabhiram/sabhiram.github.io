@@ -21,3 +21,13 @@ defaults:
         layout: "post"
         openQuote: "<div class='sab-quote'>"
         closeQuote: "</div>"
+
+  # This is here so we can enable the same defaults for "drafts" as well
+  -
+    scope:
+        path: ""
+        type: "drafts"
+    values:
+        layout: "post"
+        openQuote: "<div class='sab-quote'>"
+        closeQuote: "</div>"
