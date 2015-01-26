@@ -1,13 +1,21 @@
 # Site settings
 title: Shablog
-email: your-email@domain.com
+email: mail@sabhiram.com
 description: >
     A collection of ponderous ponderings
 baseurl: ""
 url: "http://sabhiram.com"
-twitter_username: sabhiram
+twitter_username: shaba_abhiram
 github_username:  sabhiram
 
 # Build settings
 kramdown:
   input: GFM
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
