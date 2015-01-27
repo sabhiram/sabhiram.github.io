@@ -1,0 +1,22 @@
+<!-- Define the outer container if "start" is set -->
+{% if include.start == true %}
+
+<!-- Add a tag for the author which is displayed as a :after tag -->
+<!-- Only override border color, the rest of the style is setup in our _main.scss file -->
+<div class = "blog-quote"
+{% if include.color %}
+     style = "border-color: {{ include.color }};"
+{% endif %}
+{% if include.author %}
+     style = "padding-bottom: 23px;"
+{% endif %} >
+{% if include.author %}
+    <div class = "blog-quote-author">{{ include.author }}</div>
+{% endif %}
+
+<!-- If start is not set, all we do is close the div -->
+{% else %}
+
+</div>
+
+{% endif %}

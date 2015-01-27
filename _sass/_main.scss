@@ -201,25 +201,3 @@ ul.sab-ul-inline li a {
     color: $button-text-selected;
 }
 
-/*
-    Style for the quote
-*/
-.sab-quote {
-    font-size: 1rem;
-    color: $grey-color-quote;
-    line-height: $code-line-height;
-
-    margin: 15px 10px;
-    padding-left: 12px;
-
-    overflow-x: auto;
-
-    border-left: 10px solid $sab-text-alt;
-
-    // Fix <b> tag inside a quote
-    & b {
-        color: $grey-color-dark;
-    }
-}
-
-

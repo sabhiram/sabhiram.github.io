@@ -1,0 +1,38 @@
+/*
+    Style for the quote
+*/
+.blog-quote {
+    position: relative;
+    margin: 15px 10px;
+    padding-left: 12px;
+    overflow-x: auto;
+
+    font-size: 1rem;
+    font-style: italic;
+    color: $grey-color-quote;
+    line-height: $code-line-height;
+
+    border-color: $sab-text-alt;
+    border-left: 10px solid $sab-text-alt;
+
+    // Fix <b> tag inside a quote
+    & b {
+        color: $grey-color-dark;
+    }
+
+    .blog-quote-author {
+        position: absolute;
+        bottom: 0; left: 0;
+        width: auto;
+        height: 20px; line-height: 20px;
+        padding-left: 220px;
+
+        font-style: normal;
+        color: $grey-color-dark;
+
+        &:before {
+            content: " - "
+        }
+    }
+
+}
