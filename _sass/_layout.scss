@@ -171,10 +171,41 @@
 }
 
 .post-link {
+    position: relative;
+
     display: block;
     font-size: 1.5rem;
-}
 
+    color: $text-color;
+    text-decoration: none;
+    @include transition(color 0.3s ease);
+
+    &:visited {
+        color: darken($text-color, 15%);
+    }
+
+    &:after {
+        font-size: 1.0rem;
+        position: absolute;
+        top: -20px; left: 70%;
+
+        color: darken($background-color, 15%);
+        content: attr(data-date);
+        @include transition(color 0.3s ease);
+        @include transition(left  1.0s ease-out);
+    }
+
+    &:hover {
+        color: $brand-color;
+        text-decoration: none;
+
+        &:after {
+            left: 0%;
+            color: $brand-color;
+            content: attr(data-date);
+        }
+    }
+}
 
 
 /**
