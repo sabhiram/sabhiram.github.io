@@ -82,6 +82,13 @@ $squished-nav-min: 920px;
     -webkit-border-radius: $args;
 }
 
+// transform mixin
+@mixin transform($args...) {
+    -ms-transform:      $args; /* IE 9 */
+    -webkit-transform:  $args; /* Chrome, Safari, Opera */
+    transform:          $args;
+}
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
     "base",

@@ -184,6 +184,20 @@
         color: darken($text-color, 15%);
     }
 
+    &:before {
+        position: absolute;
+        top: 10px; left: -20px;
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+
+        content: "\f054";
+        color: $background-color;
+        @include transition(color 0.3s ease);
+    }
+
     &:after {
         font-size: 1.0rem;
         position: absolute;
@@ -198,6 +212,10 @@
     &:hover {
         color: $brand-color;
         text-decoration: none;
+
+        &:before {
+            color: $brand-color;
+        }
 
         &:after {
             left: 0%;
