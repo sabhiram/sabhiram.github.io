@@ -1,5 +1,5 @@
 ---
-title: "Plugin-less Custom Highlighting with Jekyll"
+title: "Plugin-less Custom Markup with Jekyll and Liquid, Part I"
 categories: Jekyll
 tags: Jekyll, Blog, CSS
 openQuote: "<div class='blog-quote'>"
