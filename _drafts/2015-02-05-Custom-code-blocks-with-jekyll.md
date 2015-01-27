@@ -25,7 +25,7 @@ To find ourselves dishonourable graves.<br>
 
 The following post curates my exploits in seeking out the above functionality, without boiling the ocean.
 
-## Code Highlighting in Jekyll
+### Code Highlighting in Jekyll
 
 ["Code" Highlighting](http://jekyllrb.com/docs/posts/#highlighting-code-snippets) with Jekyll is pretty awesome and is as simple as wrapping your text with the respective `highlight` liquid tags as shown below:
 
@@ -60,11 +60,11 @@ Basically, Jekyll scans the code / text within the {% raw %}`{% highlight %}`{% 
 
 However, Jekyll only works with a preset [list of languages](http://pygments.org/languages/) as supported by [`pygments`](http://pygments.org/) or [`rouge`](https://github.com/jneen/rouge). Certainly one option here, is to pick a language you never plan on highlighting with, and just use that anytime you wanted a quote. This sounds icky. Perhaps we can do our quote styling with a plugin instead.
 
-## Plugins in Jekyll
+### Plugins in Jekyll
 
 From scratching the surface, it was clear that Jekyll could be easily extended by means of simple [plugins](http://jekyllrb.com/docs/plugins/). However, the large note on said page also cautions the reader that the `github pages` version of the generated site, will use the `--safe` option when baking the static site. This means custom plugins are excluded when the static site is built! Clearly, we could just set-up Jekyll locally on our dev boxes and push the generated site to github, but where is the fun in that?
 
-## Ok so no plugins, now what?
+### Ok so no plugins, now what?
 
 One other option, would be to write raw HTML in your markdown document. We could just do something like this:
 
@@ -99,7 +99,7 @@ and style the `blog-quote` class like so (excuse my sass):
 
 This totally works, but is rather ugly. Putting a bunch of divs in the blog text seems like a step backwards. 
 
-## The Unlikely Savior(?) - Front Matter
+### The Unlikely Savior(?) - Front Matter
 
 Each Jekyll page can contain a header section which defines a bunch of [`Front Matter`](http://jekyllrb.com/docs/frontmatter/). This is used to choose page specific layouts, set page attributes and what not in the Jekyll world. Here is an overview on [`Liquid Variables`](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers#variable-assignment).
 
@@ -131,7 +131,7 @@ This will produce the desired effect (using the same css from above), which is s
 The quick <b>brown</b> fox jumps over the lazy dog
 {{ page.closeQuote }}
 
-## Making things a little easier
+### Making things a little easier
 
 Let's say we end up quoting things a whole bunch. We would have to add the `openQuote` and `closeQuote` variables to each and every post's `Front Matter`. This is not very sane, but fortunately Jekyll allows us to specify page wide [`defaults`](http://jekyllrb.com/docs/configuration/#front-matter-defaults).
 
@@ -150,7 +150,7 @@ defaults:
 
 Woot! From now on, any "posts" related page will auto-magically have access to the `openQuote` and `closeQuote` variables. The usage still remains the same, use {% raw %}`{{ page.openQuote }}` and `{{ page.closeQuote }}`{% endraw %} to inject them.
 
-## And next time...
+### And next time...
 
 What if we wanted to control the color of the quote bar?
 
