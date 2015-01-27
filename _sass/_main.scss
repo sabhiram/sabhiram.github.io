@@ -267,11 +267,20 @@ ul.sab-ul-inline li a {
     &:hover {
         background: $sab-text-alt;
         color: $background-color;
+
+        &:after {
+            position: absolute;
+            top: 12px;
+            left: 130%;
+            color: $grey-color;
+            width: 120px;
+            content: attr(data-after);
+        }
     }
 
     &.active {
-        background: $sab-text-alt;
-        color: #ffe800;
+        background: lighten($grey-color, 35%);
+        color: $text-color;
     }
 
     i {
@@ -288,14 +297,14 @@ ul.sab-ul-inline li a {
 }
 #menu-btn-1 {
     top: 180px;
-    i { padding-top: 9px; padding-left: 14px; }
+    i { padding-left: 12px; }
 }
 #menu-btn-2 {
     top: 260px;
 }
 #menu-btn-3 {
     top: 340px;
-    i { padding-left: 12px; }
+    i { padding-top: 9px; padding-left: 14px; }
 }
 
 

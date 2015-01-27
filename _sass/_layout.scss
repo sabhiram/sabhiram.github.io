@@ -186,14 +186,14 @@
 
     &:before {
         position: absolute;
-        top: 10px; left: -20px;
+        top: 8px; left: -20px;
         display: inline-block;
         font: normal normal normal 14px/1 FontAwesome;
         font-size: inherit;
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
 
-        content: "\f054";
+        content: "\f101";
         color: $background-color;
         @include transition(color 0.3s ease);
     }
@@ -203,7 +203,7 @@
         position: absolute;
         top: -20px; left: 70%;
 
-        color: darken($background-color, 15%);
+        color: darken($background-color, 30%);
         content: attr(data-date);
         @include transition(color 0.3s ease);
         @include transition(left  1.0s ease-out);
