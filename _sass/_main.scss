@@ -236,6 +236,11 @@ ul.sab-ul-inline li a {
     top: 230px;
     left: 38px;
 }
+#nav-connector-3 {
+    @include transform(rotate(130deg));
+    top: 315px;
+    left: 5px;
+}
 
 .sab-menu-btn {
     display: block;
@@ -264,6 +269,11 @@ ul.sab-ul-inline li a {
         color: $background-color;
     }
 
+    &.active {
+        background: $sab-text-alt;
+        color: #ffe800;
+    }
+
     i {
         padding-top: 10px;
         padding-left: 11px;
@@ -275,15 +285,17 @@ ul.sab-ul-inline li a {
 }
 #menu-btn-0 {
     top: 100px;
-    i { padding-left: 14px; }
 }
 #menu-btn-1 {
     top: 180px;
+    i { padding-top: 9px; padding-left: 14px; }
 }
 #menu-btn-2 {
     top: 260px;
+}
+#menu-btn-3 {
+    top: 340px;
     i { padding-left: 12px; }
-
 }
 
 
