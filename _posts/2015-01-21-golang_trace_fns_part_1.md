@@ -277,9 +277,9 @@ func main() {
 
 Sweet! Hope that was informative. 
 
-### Next, we will look into:
-1. Look at pulling this tracing code into a library
+### Next time, we will look into:
+1. Pulling this code into a library
 2. Adding padding to visualize function nesting
-3. Extend the trace code with options, custom logging
+3. Extend the trace code with options, custom logging and more
 4. No-op the trace code when you don't need it
 
