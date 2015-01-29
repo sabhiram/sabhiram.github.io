@@ -283,5 +283,20 @@ ul.sab-ul-inline li a {
     clear: both;
 }
 
+.nav-right {
+    padding-top: 20px;
+    padding-bottom: 10px;
 
+    border-bottom: 3px dashed $grey-color-light;
 
+    .sab-menu-btn {
+        &:hover {
+            &:after {
+                top: -30px;
+            }
+        }
+    }
+    #menu-btn-0 {
+        margin-left: 6px;
+    }
+}
