@@ -20,6 +20,14 @@
         color: $grey-color-dark;
     }
 
+    &.blog-quote-color {
+        border-color: red;
+    }
+
+    &.blog-quote-has-author {
+        padding-bottom: 23px;
+    }
+
     .blog-quote-author {
         position: absolute;
         bottom: 0; left: 0;
@@ -36,3 +44,5 @@
     }
 
 }
+
+// TODO: How on earth do you fit this in the above scss syntax?

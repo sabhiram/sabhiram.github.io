@@ -1,22 +1,49 @@
-<!-- Define the outer container if "start" is set -->
+{% comment %}
+<!--
+    Define the outer container if "include.start" is set:
+
+        First, setup the outer containers class, and inject other class attributes which
+        we have received via the input.var parameters. At the very least, the container
+        requires the "blog-quote" class.
+
+        If the "include.author" is set, inject the "blog-quote-has-author" class. This
+        allows us to size the container appropriately from our CSS.
+
+        Because the "attr" property will only work against the content property, we need
+        to manually setup the style for the border color if it is specified
+
+        If the quote has an author:
+
+            Inject a div with class "blog-quote-author" and put the authors name in it
+
+    If "include.start" is not set, it is assumed that we wish to "end" this tag
+    group with a </div>.
+
+    Note: We capture the "container_class" appended with the new class we wish to add
+    to a temp variable, and then assign the "container_class" to "temp". For some reason
+    we cannot assign "container_class" to something appended to it.
+-->
+{% endcomment %}
+
 {% if include.start == true %}
 
-<!-- Add a tag for the author which is displayed as a :after tag -->
-<!-- Only override border color, the rest of the style is setup in our _main.scss file -->
-<div class = "blog-quote"
-{% if include.color %}
-     style = "border-color: {{ include.color }};"
-{% endif %}
-{% if include.author %}
-     style = "padding-bottom: 23px;"
-{% endif %} >
-{% if include.author %}
-    <div class = "blog-quote-author">{{ include.author }}</div>
-{% endif %}
+  {% assign container_class = "blog-quote" %}
 
-<!-- If start is not set, all we do is close the div -->
+  {% if include.author %}
+    {% capture temp %}{{ container_class | append:" blog-quote-has-author" }}{% endcapture %}
+    {% assign container_class = temp %}
+  {% endif %}
+
+  <div class = "{{ container_class }}"
+  {% if include.color %}
+       style = "border-color: {{ include.color }};"
+  {% endif %} >
+  {% if include.author %}
+      <div class = "blog-quote-author">{{ include.author }}</div>
+  {% endif %}
+
 {% else %}
 
-</div>
+  </div>
 
 {% endif %}
