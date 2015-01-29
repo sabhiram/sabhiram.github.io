@@ -201,12 +201,12 @@
     &:after {
         font-size: 1.0rem;
         position: absolute;
-        top: -20px; left: 70%;
+        top: -20px; left: 0%;
 
         color: darken($background-color, 30%);
         content: attr(data-date);
         @include transition(color 0.3s ease);
-        @include transition(left  1.0s ease-out);
+        // @include transition(left  1.0s ease-out);
     }
 
     &:hover {
@@ -218,9 +218,7 @@
         }
 
         &:after {
-            left: 0%;
             color: $brand-color;
-            content: attr(data-date);
         }
     }
 }
