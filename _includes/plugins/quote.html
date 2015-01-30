@@ -1,5 +1,13 @@
 {% comment %}
 <!--
+Options:
+    start  = true | false(default)  - Begin the quote plugin if start == true
+    color  = css color              - Set the border color to "color" if set, else
+                                      the CSS default is used
+    author = name of author         - If present, extra space is taken below the
+                                      quote to tag the author. Uses a CSS :after tag
+
+Description:
     Define the outer container if "include.start" is set:
 
         First, setup the outer containers class, and inject other class attributes which
