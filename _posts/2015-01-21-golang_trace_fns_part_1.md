@@ -229,7 +229,7 @@ Lets re-visit the `defer` statement. The excerpt for `defer`, tells us that any 
 defer _exit(_enter())
 {% endhighlight %}
 
-Putting it all together, *foo.go* should look like this:
+Putting it all together, *foo.go* should look like this (note that we made the function finding code more readable as well):
 {% highlight go %}
 package main
 
@@ -239,15 +239,18 @@ import (
     "regexp"
 )
 
+// Regex to extract just the function name (and not the module path)
+var RE_stripFnPreamble = regexp.MustCompile(`^.*\.(.*)$`)
+
 // Trace Functions
 func _enter() string {
+    fnName := "<unknown>"
     // Skip this function, and fetch the PC and file for its parent
-    pc, _, _, _ := runtime.Caller(1)
-    // Retrieve a Function object this functions parent
-    functionObject := runtime.FuncForPC(pc)
-    // Regex to extract just the function name (and not the module path)
-    extractFnName := regexp.MustCompile(`^.*\.(.*)$`)
-    fnName := extractFnName.ReplaceAllString(functionObject.Name(), "$1")
+    pc, _, _, ok := runtime.Caller(1)
+    if ok {
+        fnName = RE_stripFnPreamble.ReplaceAllString(runtime.FuncForPC(pc).Name(), "$1")
+    }
+    
     fmt.Printf("Entering %s\n", fnName)
     return fnName
 }

@@ -29,14 +29,17 @@ import (
     "regexp"
 )
 
+// Regex to extract just the function name (and not the module path)
+var RE_stripFnPreamble = regexp.MustCompile(`^.*\.(.*)$`)
+
 func Enter() string {
+    fnName := "<unknown>"
     // Skip this function, and fetch the PC and file for its parent
-    pc, _, _, _ := runtime.Caller(1)
-    // Retrieve a Function object this functions parent
-    functionObject := runtime.FuncForPC(pc)
-    // Regex to extract just the function name (and not the module path)
-    extractFnName := regexp.MustCompile(`^.*\.(.*)$`)
-    fnName := extractFnName.ReplaceAllString(functionObject.Name(), "$1")
+    pc, _, _, ok := runtime.Caller(1)
+    if ok {
+        fnName = RE_stripFnPreamble.ReplaceAllString(runtime.FuncForPC(pc).Name(), "$1")
+    }
+
     fmt.Printf("Entering %s\n", fnName)
     return fnName
 }
@@ -82,18 +85,21 @@ import (
     "regexp"
 )
 
+// Regex to extract just the function name (and not the module path)
+var RE_stripFnPreamble = regexp.MustCompile(`^.*\.(.*)$`)
+
 // Single entry-point to fetch trace functions
 func New() (func(string), func() string) {
 
     // Define our enter function
     _enter := func() string {
+        fnName := "<unknown>"
         // Skip this function, and fetch the PC and file for its parent
-        pc, _, _, _ := runtime.Caller(1)
-        // Retrieve a Function object this functions parent
-        functionObject := runtime.FuncForPC(pc)
-        // Regex to extract just the function name (and not the module path)
-        extractFnName := regexp.MustCompile(`^.*\.(.*)$`)
-        fnName := extractFnName.ReplaceAllString(functionObject.Name(), "$1")
+        pc, _, _, ok := runtime.Caller(1)
+        if ok {
+            fnName = RE_stripFnPreamble.ReplaceAllString(runtime.FuncForPC(pc).Name(), "$1")
+        }
+
         fmt.Printf("Entering %s\n", fnName)
         return fnName
     }
@@ -241,12 +247,14 @@ func New(opts *Options) (func(string), func() string) {
     // Define our enter function
     _enter := func() string {
         defer _incrementDepth()
+        
+        fnName := "<unknown>"
         // Skip this function, and fetch the PC and file for its parent
-        pc, _, _, _ := runtime.Caller(1)
-        // Retrieve a Function object this functions parent
-        functionObject := runtime.FuncForPC(pc)
-        // Regex to extract just the function name (and not the module path)
-        fnName := RE_stripFnPreamble.ReplaceAllString(functionObject.Name(), "$1")
+        pc, _, _, ok := runtime.Caller(1)
+        if ok {
+            fnName = RE_stripFnPreamble.ReplaceAllString(runtime.FuncForPC(pc).Name(), "$1")
+        }
+
         fmt.Printf("%sEntering %s\n", _spacify(), fnName)
         return fnName
     }
