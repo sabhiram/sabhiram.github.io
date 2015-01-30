@@ -189,6 +189,11 @@ import (
     "regexp"
 )
 
+// Define a global regex for extracting function names. Thanks to
+// Jeff below for pointing out that I was calling MustCompile() from
+// the function each time.
+var RE_stripFnPreamble = regexp.MustCompile(`^.*\.(.*)$`)
+
 type Options struct {
     // Setting "DisableNesting" to "true" will cause tracey to not indent
     // any messages from nested functions. The default value is "false"
@@ -241,8 +246,7 @@ func New(opts *Options) (func(string), func() string) {
         // Retrieve a Function object this functions parent
         functionObject := runtime.FuncForPC(pc)
         // Regex to extract just the function name (and not the module path)
-        extractFnName := regexp.MustCompile(`^.*\.(.*)$`)
-        fnName := extractFnName.ReplaceAllString(functionObject.Name(), "$1")
+        fnName := RE_stripFnPreamble.ReplaceAllString(functionObject.Name(), "$1")
         fmt.Printf("%sEntering %s\n", _spacify(), fnName)
         return fnName
     }
