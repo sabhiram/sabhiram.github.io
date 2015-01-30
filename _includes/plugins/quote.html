@@ -2,34 +2,31 @@
 <!--
 Options:
     start  = true | false(default)  - Begin the quote plugin if start == true
-    color  = css color              - Set the border color to "color" if set, else
-                                      the CSS default is used
-    author = name of author         - If present, extra space is taken below the
-                                      quote to tag the author. Uses a CSS :after tag
+    color  = css color              - Set the border color to "color" if set,
+                                      else the CSS default is used
+    author = name of author         - If present, extra space is taken below
+                                      the quote to tag the author. Uses a CSS
+                                      :after tag
 
 Description:
-    Define the outer container if "include.start" is set:
+    1. Define the outer container if "include.start" is set:
+        a. First, setup the outer containers class, and inject other class
+           attributes which we have received via the input.var parameters.
+           At the very least, the container requires the "blog-quote" class.
 
-        First, setup the outer containers class, and inject other class attributes which
-        we have received via the input.var parameters. At the very least, the container
-        requires the "blog-quote" class.
+        b. If the "include.author" is set, inject the "blog-quote-has-author"
+           class. This allows us to size the container appropriately from our
+           CSS.
 
-        If the "include.author" is set, inject the "blog-quote-has-author" class. This
-        allows us to size the container appropriately from our CSS.
+        c. Because the "attr" property will only work against the content CSS
+           property, we need to manually setup the style for the border color
+           if it is specified by the user
 
-        Because the "attr" property will only work against the content property, we need
-        to manually setup the style for the border color if it is specified
+        d. If the quote has an author, inject a div with class
+           "blog-quote-author" and put the authors name in it
 
-        If the quote has an author:
-
-            Inject a div with class "blog-quote-author" and put the authors name in it
-
-    If "include.start" is not set, it is assumed that we wish to "end" this tag
-    group with a </div>.
-
-    Note: We capture the "container_class" appended with the new class we wish to add
-    to a temp variable, and then assign the "container_class" to "temp". For some reason
-    we cannot assign "container_class" to something appended to it.
+    2. If "include.start" is not set, it is assumed that we wish to "end"
+       this tag group with a </div>
 -->
 {% endcomment %}
 
@@ -38,8 +35,7 @@ Description:
   {% assign container_class = "blog-quote" %}
 
   {% if include.author %}
-    {% capture temp %}{{ container_class | append:" blog-quote-has-author" }}{% endcapture %}
-    {% assign container_class = temp %}
+    {% assign container_class = container_class | append: " blog-quote-has-author" %}
   {% endif %}
 
   <div class = "{{ container_class }}"
