@@ -5,6 +5,8 @@ tags: Go
 enableChat: true
 ---
 
+This is **Part I** of a two-part post on Function Tracing in `Go`. [`Part II`]({% post_url 2015-01-29-golang_trace_fns_part_2 %}) is now online!
+
 Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in `Go`.
 
 The following is an attempt to document my previously stated journey. Be warned, I have only been `Go`ing for the better part of the week.
@@ -277,9 +279,5 @@ func main() {
 
 Sweet! Hope that was informative. 
 
-### Next time, we will look into:
-1. Pulling this code into a library
-2. Adding padding to visualize function nesting
-3. Extend the trace code with options, custom logging and more
-4. No-op the trace code when you don't need it
+In [`Part II`]({% post_url 2015-01-29-golang_trace_fns_part_2 %}), we will investigate moving this code to a library and extending it with some simple options.
 
