@@ -225,7 +225,7 @@ ul.sab-ul-inline li a {
     @include border-radius(100%);
 
     z-index: 1;
-    margin: 6px;
+    margin: 4px;
 
     &:visited {
         color: $text-color;
@@ -284,7 +284,7 @@ ul.sab-ul-inline li a {
 }
 
 .nav-right {
-    padding-top: 20px;
+    padding-top: 10px;
     padding-bottom: 10px;
 
     border-bottom: 3px dashed $grey-color-light;
@@ -297,6 +297,6 @@ ul.sab-ul-inline li a {
         }
     }
     #menu-btn-0 {
-        margin-left: 6px;
+        margin-left: 4px;
     }
 }
