@@ -1,0 +1,13 @@
+{% comment %}
+<!--
+Options:
+    height - height in css to set this div to, width is assumed to be 100%
+
+Description:
+    Define the outer container which takes up "height" amount of space
+-->
+{% endcomment %}
+
+{% if include.height %}
+<div style = "width: 100%; height: {{ include.height }};"></div>
+{% endif %}
