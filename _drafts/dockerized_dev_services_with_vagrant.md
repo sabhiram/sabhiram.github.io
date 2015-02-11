@@ -83,5 +83,5 @@ And within the `services\mongodb` folder we have:
 | init.sh | A provisioning script, which will build our docker image, and run it on our fresh new VM |
 |---- | ----- |
 
-The code for the above mock project can be found here: [`node-mongo-service-demo`](https://github.com/sabhiram/node-mongo-service-demo).
+The code for the above mock project can be found here: [`dockerized-mongo-service`](https://github.com/sabhiram/dockerized-mongo-service).
 
