@@ -15,18 +15,18 @@ It is also possible to wake machines not directly in your LAN, but this topic is
 
 Assuming that the `Wake-on-LAN` settings have been enabled in a machine's BIOS, and said machine has a MAC address of `00:11:22:33:44:55`, we can power this machine on by sending a [`Magic Packet`](http://en.wikipedia.org/w/index.php?title=Wake-on-LAN&redirect=no#Magic_packet) encoded with it's MAC address.
 
-These `Magic Packets` are not protocol specific, and therefore can be sent using just about any network protocol. However, these are typically sent as a [`UDP Packet`](http://en.wikipedia.org/wiki/User_Datagram_Protocol).
+These packets are not protocol specific, and therefore can be sent using just about any network protocol. However, these are typically sent as a [`UDP Packet`](http://en.wikipedia.org/wiki/User_Datagram_Protocol).
 
 ### Show me the Magic!
 
-A `Magic Packet` is defined as any payload that contains the following pattern:
+A Magic Packet is defined as any payload that contains the following pattern:
 
 1. 6 bytes of `0xFF`
 2. 16 repetitions of the targets 48-bit MAC address (16 * 6 bytes)
 
-Note that the relevant part of the `Magic Packet` is 6 + (16 * 6) = 102 bytes. The payload however can be larger, as long as the above pattern can be found.
+Note that the relevant part of the Magic Packet is 6 + (16 * 6) = 102 bytes. The payload however can be larger, as long as the above pattern can be found.
 
-Ok, time to get coding. Lets define what we need to form a `MagicPacket`:
+Time to get coding. Lets define our packet:
 {% highlight go %}
 // A MacAddress is 6 bytes in a row
 type MacAddress [6]byte
@@ -41,7 +41,7 @@ type MagicPacket struct {
 
 ### Initializing a Magic Packet
 
-Since the only real "input" to a `MagicPacket` is a valid MAC address, it should make sense to have a convenience function to create, initialize and inject the MAC address into a new `MagicPacket`.
+Since the only real "input" to a MagicPacket is a valid MAC address, it should make sense to have a convenience function to create, initialize and inject the MAC address into a new MagicPacket.
 
 First some globals. Here we call out the delims which might separate the bytes of a MAC Address, and a Regex to match for valid MAC Addresses:
 {% highlight go %}
@@ -75,7 +75,7 @@ func GetMacAddressFromString(mac string) (*MacAddress, error) {
 }
 {% endhighlight %}
 
-Finally, we write a function which accepts a MAC Address (as a string), and returns a pointer to a `MagicPacket`:
+Finally, we write a function which accepts a MAC Address (as a string), and returns a pointer to a MagicPacket:
 {% highlight go %}
 func NewMagicPacket(mac string) (*MagicPacket, error) {
     var packet MagicPacket
@@ -106,7 +106,7 @@ func NewMagicPacket(mac string) (*MagicPacket, error) {
 }
 {% endhighlight %}
 
-Awesome, now we can do something like this to get a `MagicPacket` from a MAC Address:
+Awesome, now we can do something like this to get a MagicPacket from a MAC Address:
 {% highlight go %}
 magicPacket, err := NewMagicPacket("00:11:22:33:44:55")
 if err == nil {
@@ -121,7 +121,7 @@ Magic Packet: &{[255 255 255 255 255 255] [[0 17 34 51 68 85] [0 17 34 51 68 85]
 
 ### Put that in a pipe!
 
-So we have a nicely formed `MagicPacket`, now to get this data sent as a UDP broadcast. First, convert the `magicPacket` we formed above into a bunch of bytes:
+So we have a nicely formed MagicPacket, now to get this data sent as a UDP broadcast. First, convert the magicPacket we formed above into a bunch of bytes:
 {% highlight go %}
 import (
     "encoding/binary"
@@ -163,6 +163,6 @@ if err != nil {
 
 ### Wrapping up
 
-We looked at defining a bunch of bytes to form a `MagicPacket`, then we went about initializing the packet based on a given input MAC address. We also explored using the [`net package`](http://golang.org/pkg/net/) to send a bunch of bytes as a UDP broadcast to wake our target machine.
+We looked at defining a bunch of bytes to form a MagicPacket, then we went about initializing the packet based on a given input MAC address. We also explored using the [`net package`](http://golang.org/pkg/net/) to send a bunch of bytes as a UDP broadcast to wake our target machine.
 
 I hope this was somewhat useful. If this was interesting, and you want to check out a more complete, command line version of this utility - take a look at: [`sabhiram/go-wol`](https://github.com/sabhiram/go-wol).
