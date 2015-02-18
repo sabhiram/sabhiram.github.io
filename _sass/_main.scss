@@ -301,3 +301,56 @@ ul.sab-ul-inline li a {
         margin-left: 4px;
     }
 }
+
+.four-oh-four-container {
+    display: table;
+
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+
+    background: $sab-text-alt;
+}
+
+.four-oh-four-container .text {
+    position: relative;
+
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 11rem;
+
+    @include transition(all 0.3s ease);
+    color: rgba(255,60,60, 0.30);
+    text-shadow: 1px 4px 6px darken($sab-text-alt, 5%), 0 0 0 #000, 1px 4px 6px darken($sab-text-alt, 5%);
+}
+
+.text a {
+    text-decorations: none;
+    color:inherit;
+}
+.text .fa-circle-o {
+    position: relative;
+    cursor: pointer;
+}
+.text .fa-circle-o:hover {
+    color: rgba(255,255,255, 0.60);
+}
+.text .fa-circle-o:after {
+    content: "\f015";
+    font-size: 6rem;
+
+    position: absolute;
+    left: 30px; top: 38px;
+    opacity: 0;
+
+    @include transition(all 0.3s ease);
+}
+.text .fa-circle-o:hover:after {
+    opacity: 1;
+}
