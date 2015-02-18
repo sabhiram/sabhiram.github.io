@@ -52,57 +52,42 @@ var (
 )
 {% endhighlight %}
 
-Next, lets write a small helper function which takes a valid MAC Address string, and returns a pointer to a `MacAddress`:
+To convert a MAC Address string into a [`net.HardwareAddr`](http://golang.org/pkg/net/#HardwareAddr), we can use [`net.ParseMAC()`](http://golang.org/pkg/net/#ParseMAC). Once we have our set of bytes, all we need to do is fill our MagicPacket.
+
 {% highlight go %}
-func GetMacAddressFromString(mac string) (*MacAddress, error) {
-    // First strip the delimiters from the valid MAC Address
-    for _, delim := range delims {
-        mac = strings.Replace(mac, string(delim), "", -1)
+// This function accepts a MAC Address string, and returns a pointer to
+// a MagicPacket object. A Magic Packet is a broadcast frame which
+// contains 6 bytes of 0xFF followed by 16 repetitions of a given mac address.
+func NewMagicPacket(mac string) (*MagicPacket, error) {
+    var packet MagicPacket
+    var macAddr MACAddress
+
+    // We only support 6 byte MAC addresses
+    if !re_MAC.MatchString(mac) {
+        return nil, errors.New("MAC address " + mac + " is not valid.")
     }
 
-    // Fetch the bytes from the string representation of the
-    // MAC address. address is []byte
-    address, err := hex.DecodeString(mac)
+    hwAddr, err := net.ParseMAC(mac)
     if err != nil {
         return nil, err
     }
 
-    var ret MacAddress
-    for idx, _ := range ret {
-        ret[idx] = address[idx]
+    // Copy bytes from the returned HardwareAddr -> a fixed size MACAddress
+    for idx := range macAddr {
+        macAddr[idx] = hwAddr[idx]
     }
-    return &ret, nil
-}
-{% endhighlight %}
 
-Finally, we write a function which accepts a MAC Address (as a string), and returns a pointer to a MagicPacket:
-{% highlight go %}
-func NewMagicPacket(mac string) (*MagicPacket, error) {
-    var packet MagicPacket
-
-    // Parse the MAC Address into a "MacAddress". For the time being, only
-    // the traditional methods of writing MAC Addresses are supported.
-    // XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX will match. All others will throw
-    // up an error to the caller.
-    if re_MAC.MatchString(mac) {
-        // Setup the header which is 6 repetitions of 0xFF
-        for idx, _ := range packet.header {
-            packet.header[idx] = 0xFF
-        }
-
-        addr, err := GetMacAddressFromString(mac)
-        if err != nil {
-            return nil, err
-        }
-
-        // Setup the payload which is 16 repetitions of the MAC addr
-        for idx, _ := range packet.payload {
-            packet.payload[idx] = *addr
-        }
-
-        return &packet, nil
+    // Setup the header which is 6 repetitions of 0xFF
+    for idx := range packet.header {
+        packet.header[idx] = 0xFF
     }
-    return nil, errors.New("Invalid MAC address format seen with " + mac)
+
+    // Setup the payload which is 16 repetitions of the MAC addr
+    for idx := range packet.payload {
+        packet.payload[idx] = macAddr
+    }
+
+    return &packet, nil
 }
 {% endhighlight %}
 
@@ -121,48 +106,51 @@ Magic Packet: &{[255 255 255 255 255 255] [[0 17 34 51 68 85] [0 17 34 51 68 85]
 
 ### Put that in a pipe!
 
-So we have a nicely formed MagicPacket, now to get this data sent as a UDP broadcast. First, convert the magicPacket we formed above into a bunch of bytes:
-{% highlight go %}
-import (
-    "encoding/binary"
-    "bytes"
-    "net"
-)
+We now have a nicely formed MagicPacket, all we need to do is send this data out as a UDP broadcast. This basically involves converting the MagicPacket into a []byte which we can feed into a UDP connection we will form.
 
-var buf bytes.Buffer
-binary.Write(&buf, binary.BigEndian, magicPacket)
-{% endhighlight %}
-
-Fetch a `UDPAddr*` from the broadcast address / port we wish to send the packet to (in this case 255.255.255.255:9):
 {% highlight go %}
-udpAddr, err := net.ResolveUDPAddr("udp", "255.255.255.255:9")
-if err != nil {
-    fmt.Printf("Unable to get a UDP address for 255.255.255.255:9\n")
-    return err
-}
-{% endhighlight %}
+// This function accepts a MAC address string, and s
+// Function to send a magic packet to a given mac address
+func SendMagicPacket(macAddr string) error {
+    magicPacket, err := NewMagicPacket(macAddr)
+    if err != nil {
+        return err
+    }
 
-Connect to the address (and also setup the closing of the connection once this function exits):
-{% highlight go %}
-connection, err := net.DialUDP("udp", nil, udpAddr)
-if err != nil {
-    fmt.Printf("Unable to dial UDP address for 255.255.255.255:9\n")
-    return err
-}
-defer connection.Close()
-{% endhighlight %}
+    // Fill our byte buffer with the bytes in our MagicPacket
+    var buf bytes.Buffer
+    binary.Write(&buf, binary.BigEndian, magicPacket)
 
-Finally, we write the bytes stored in `buf` to the above connection:
-{% highlight go %}
-bytesWritten, err := connection.Write(buf.Bytes())
-if err != nil {
-    fmt.Printf("Unable to write magic packet to connection\n")
-    return err
+    // Get a UDPAddr to send the broadcast to
+    udpAddr, err := net.ResolveUDPAddr("udp", "255.255.255.255:9")
+    if err != nil {
+        fmt.Printf("Unable to get a UDP address for %s\n", "255.255.255.255:9")
+        return err
+    }
+
+    // Open a UDP connection, and defer its cleanup
+    connection, err := net.DialUDP("udp", nil, udpAddr)
+    if err != nil {
+        fmt.Printf("Unable to dial UDP address for %s\n", "255.255.255.255:9")
+        return err
+    }
+    defer connection.Close()
+
+    // Write the bytes of the MagicPacket to the connection
+    bytesWritten, err := connection.Write(buf.Bytes())
+    if err != nil {
+        fmt.Printf("Unable to write packet to connection\n")
+        return err
+    } else if bytesWritten != 102 {
+        fmt.Printf("Warning: %d bytes written, %d expected!\n", bytesWritten, 102)
+    }
+
+    return nil
 }
 {% endhighlight %}
 
 ### Wrapping up
 
-We looked at defining a bunch of bytes to form a MagicPacket, then we went about initializing the packet based on a given input MAC address. We also explored using the [`net package`](http://golang.org/pkg/net/) to send a bunch of bytes as a UDP broadcast to wake our target machine.
+We looked at defining a bunch of bytes to form a MagicPacket, then we went about initializing the packet based on a given input MAC address. Then we explored using the [`net package`](http://golang.org/pkg/net/) to send a bunch of bytes as a UDP broadcast to wake our target machine.
 
 I hope this was somewhat useful. If this was interesting, and you want to check out a more complete, command line version of this utility - take a look at: [`sabhiram/go-wol`](https://github.com/sabhiram/go-wol).
