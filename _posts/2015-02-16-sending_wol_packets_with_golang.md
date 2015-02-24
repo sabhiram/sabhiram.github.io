@@ -7,7 +7,7 @@ enableChat: true
 
 Doing stuff remotely is pretty awesome. Nothing is cooler than banging a bunch of keys on a terminal, to result in the machine 3 feet away roar to life. Yes, it is within my reach, but hey where is the fun in that?!?
 
-The process by which one might remotely power-on a machine (on the same LAN) is referred to as [`Wake-on-LAN (WOL)`](http://en.wikipedia.org/wiki/Wake-on-LAN). This process involves sending a specific payload on the local area network. Said payload is encoded with a target machine's MAC address. If the target machine's Ethernet interface receives this broadcast - it powers on the target machine!
+The process by which one might remotely power-on a machine (on the same LAN) is referred to as [`Wake-on-LAN (WOL)`](http://en.wikipedia.org/wiki/Wake-on-LAN). This process involves sending a specific payload over the local area network that a target machine is connected to. This payload is encoded with the MAC Address of the target machine. 
 
 It is also possible to wake machines not directly in your LAN, but this topic is out of the scope of this post. There are many security implications of allowing machines to be woken up via a network broadcast, therefore most machines will expose a setting in their BIOS to enable or disable remote power on. 
 
@@ -22,7 +22,7 @@ These packets are not protocol specific, and therefore can be sent using just ab
 A Magic Packet is defined as any payload that contains the following pattern:
 
 1. 6 bytes of `0xFF`
-2. 16 repetitions of the targets 48-bit MAC address (16 * 6 bytes)
+2. 16 repetitions of the target's 48-bit MAC address (16 * 6 bytes)
 
 Note that the relevant part of the Magic Packet is 6 + (16 * 6) = 102 bytes. The payload however can be larger, as long as the above pattern can be found.
 
@@ -106,7 +106,7 @@ Magic Packet: &{[255 255 255 255 255 255] [[0 17 34 51 68 85] [0 17 34 51 68 85]
 
 ### Put that in a pipe!
 
-We now have a nicely formed MagicPacket, all we need to do is send this data out as a UDP broadcast. This basically involves converting the MagicPacket into a []byte which we can feed into a UDP connection we will form.
+We now have a nicely formed MagicPacket, all we need to do is send this data out as a UDP broadcast. This basically involves converting the MagicPacket into a []byte which we can then feed into a UDP connection that we will form.
 
 {% highlight go %}
 // This function accepts a MAC address string, and s
