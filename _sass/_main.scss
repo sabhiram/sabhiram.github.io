@@ -33,7 +33,7 @@
 
     @include transition(color 0.3s ease);
     &:hover {
-        color: $sab-color-alt;
+        color: $sab-text-alt;
         text-decoration: none;
     }
 }
