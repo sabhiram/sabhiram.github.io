@@ -27,6 +27,17 @@
     padding: 10px;
 }
 
+.nav-item {
+    margin: 4px;
+    color: $sab-text-color;
+
+    @include transition(color 0.3s ease);
+    &:hover {
+        color: $sab-color-alt;
+        text-decoration: none;
+    }
+}
+
 .sab-link {
     text-decoration: none;
     color: $sab-text-color;

@@ -7,7 +7,7 @@ enableChat: true
 
 This is **Part I** of a two-part post on Function Tracing in `Go`. [`Part II`]({% post_url 2015-01-29-golang_trace_fns_part_2 %}) is now online!
 
-Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in `Go`.
+Google's `Go` is pretty cool, and fairly fast. A few weeks ago, I finally got around to messing with it. I wrote a couple of simple library functions, and decided that I wanted to build a small lib to trace functions in golang.
 
 The following is an attempt to document my previously stated journey. Be warned, I have only been `Go`ing for the better part of the week.
 
@@ -32,7 +32,7 @@ func foo(i int) bool {
     return true
 }
 
-func main() { 
+func main() {
     fmt.Printf("Entering main\n")
     foo(1)
 }
@@ -84,7 +84,7 @@ func foo(i int) bool {
     return true
 }
 
-func main() { 
+func main() {
     fmt.Printf("Entering main()\n")
     defer fmt.Printf("Exiting main()\n")
     foo(1)
@@ -250,7 +250,7 @@ func _enter() string {
     if ok {
         fnName = RE_stripFnPreamble.ReplaceAllString(runtime.FuncForPC(pc).Name(), "$1")
     }
-    
+
     fmt.Printf("Entering %s\n", fnName)
     return fnName
 }
@@ -280,7 +280,7 @@ func main() {
 }
 {% endhighlight go %}
 
-Sweet! Hope that was informative. 
+Sweet! Hope that was informative.
 
 In [`Part II`]({% post_url 2015-01-29-golang_trace_fns_part_2 %}), we will investigate moving this code to a library and extending it with some simple options.
 
