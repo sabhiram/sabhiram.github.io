@@ -129,10 +129,10 @@ blockquote {
  */
 pre,
 code {
-    font-size: 1rem;
+    /*font-size: 1rem;
     border: 1px solid $sab-code-border;
     border-radius: 2px;
-    background-color: $sab-code-color;
+    background-color: $sab-code-color;*/
     color: $sab-code-text-color;
     line-height: $code-line-height;
 }
@@ -142,15 +142,20 @@ code {
 
     // Special case link w/in <a>
     a & {
-        border: 1px solid $sab-text-alt;
-        @include transition(all 0.3s ease);
+        color: $sab-text-alt;
+        /*@include transition(all 0.3s ease);*/
 
         &:hover {
-            background-color: $sab-text-alt;
+            text-decoration: underline;
+            /*background-color: $sab-text-alt;
             border: 1px solid $text-color;
-            color: $background-color;
+            color: $background-color;*/
         }
     }
+}
+
+code .highlighter-rouge {
+    color: #c33939;
 }
 
 pre {
