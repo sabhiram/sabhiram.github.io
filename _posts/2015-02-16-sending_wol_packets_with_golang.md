@@ -2,7 +2,7 @@
 title: "Wake-on-LAN with Go"
 categories: development
 tags: Go, Wake-on-LAN, WOL
-enableChat: true
+enableChat: false
 ---
 
 Doing stuff remotely is pretty awesome. Nothing is cooler than banging a bunch of keys on a terminal, to result in the machine 3 feet away roar to life. Yes, it is within my reach, but hey where is the fun in that?!?
@@ -48,11 +48,11 @@ First some globals. Here we call out the delims which might separate the bytes o
 // Define globals for MacAddress parsing
 var (
     delims = ":-"
-    re_MAC = regexp.MustCompile(`^([0-9a-fA-F]{2}[` + delims + `]){5}([0-9a-fA-F]{2})$`)
+    re_MAC = regexp.MustCompile(`^([0-9a-fA-F]{2}[`+delims+`]){5}([0-9a-fA-F]{2})$`)
 )
 {% endhighlight %}
 
-To convert a MAC Address string into a [`net.HardwareAddr`](http://golang.org/pkg/net/#HardwareAddr), we can use [`net.ParseMAC()`](http://golang.org/pkg/net/#ParseMAC). Once we have our set of bytes, all we need to do is fill our MagicPacket.
+To convert a MAC Address string into a [`net.HardwareAddr`](http://golang.org/pkg/net/#HardwareAddr), we can use [`net.ParseMAC()`](http://golang.org/pkg/net/#ParseMAC).  Once we have our set of bytes, all we need to do is fill our MagicPacket.
 
 {% highlight go %}
 // This function accepts a MAC Address string, and returns a pointer to
