@@ -56,17 +56,17 @@ Looking at the generated HTML, we see something like:
 </div>
 {% endhighlight html %}
 
-Basically, Jekyll scans the code / text within the {% raw %}`{% highlight %}`{% endraw %} tag, and post processes it. Neat, so to add custom styling for quotes - we should just be able to define a custom language and style it as we see fit (we can style the container as well as the content). 
+Basically, Jekyll scans the code / text within the {% raw %}`{% highlight %}`{% endraw %} tag, and post processes it. Neat, so to add custom styling for quotes - we should be able to define a custom language and style it as we see fit (we can style the container as well as the content).
 
-However, Jekyll only works with a preset [list of languages](http://pygments.org/languages/) as supported by [`pygments`](http://pygments.org/) or [`rouge`](https://github.com/jneen/rouge). Certainly one option here, is to pick a language you never plan on highlighting with, and just use that anytime you wanted a quote. This sounds icky. Perhaps we can do our quote styling with a plugin instead.
+However, Jekyll only works with a preset [list of languages](http://pygments.org/languages/) as supported by [`pygments`](http://pygments.org/) or [`rouge`](https://github.com/jneen/rouge). Certainly one option here, is to pick a language you never plan on highlighting with, and use that anytime you wanted a quote. This sounds icky. Perhaps we can do our quote styling with a plugin instead.
 
 ### Plugins in Jekyll
 
-From scratching the surface, it was clear that Jekyll could be easily extended by means of simple [plugins](http://jekyllrb.com/docs/plugins/). However, the large note on said page also cautions the reader that the `github pages` version of the generated site, will use the `--safe` option when baking the static site. This means custom plugins are excluded when the static site is built! Clearly, we could just set-up Jekyll locally on our dev boxes and push the generated site to github, but where is the fun in that?
+From scratching the surface, it was clear that Jekyll could be easily extended by means of simple [plugins](http://jekyllrb.com/docs/plugins/). However, the large note on said page also cautions the reader that the `github pages` version of the generated site, will use the `--safe` option when baking the static site. This means custom plugins are excluded when the static site is built! Clearly, we could set-up Jekyll locally on our dev boxes and push the generated site to github, but where is the fun in that?
 
 ### So... no plugins, now what?
 
-One other option, would be to write raw HTML in your markdown document. We could just do something like this:
+One other option, would be to write raw HTML in your markdown document. We could do something like this:
 
 {% highlight html %}
 <div class="blog-quote">
@@ -97,7 +97,7 @@ and style the `blog-quote` class like so (excuse my sass):
 }
 {% endhighlight %}
 
-This totally works, but is rather ugly. Putting a bunch of divs in the blog  seems like a step backwards. 
+This totally works, but is rather ugly. Putting a bunch of divs in the blog  seems like a step backwards.
 
 ### The Unlikely Savior(?) - Front Matter
 
@@ -149,22 +149,3 @@ defaults:
 {% endhighlight %}
 
 Woot! From now on, any "posts" related page will auto-magically have access to the `openQuote` and `closeQuote` variables. The usage still remains the same, use {% raw %}`{{ page.openQuote }}` and `{{ page.closeQuote }}`{% endraw %} to inject them.
-
-### And next time...
-
-One of the issues with the above approach, is the somewhat static nature of injecting constant strings (or HTML tags). This makes us have to define one of these "groups" (like `fooOpen` and `fooClose`), for each type of unique formatting we wish to apply.
-
-What if we wanted to control the color of the quote bar?
-
-{% include plugins/quote.html start=true color="red" %}
-The quick <b>brown</b> fox jumps over the lazy dog
-{% include plugins/quote.html %}
-
-Or add an author (optionally?)
-
-{% include plugins/quote.html start=true color="purple" author="A Pangram" %}
-The quick <b>brown</b> fox jumps over the lazy dog
-{% include plugins/quote.html %}
-
-In the next post, I will explore a slightly different approach at building very simple "plugins" within our (github confined) Jekyll / Liquid eco-system.
-
