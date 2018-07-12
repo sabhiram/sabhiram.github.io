@@ -70,7 +70,7 @@ func main() {
 }
 ```
 
-The important thing to note is the `import "C"` shenanigans. The `C` import exposes all underlying C functions (standard or linked against explicitly). The comment (or comments) that come directly before the `import "C"` line is referred to as the `preamble` and is treated as a C-header during the compilation of the C code in the program.
+The important thing to note is the `import "C"` shenanigans. The `C` import exposes all underlying C functions (standard or linked against explicitly). The comment (or comments) that come directly before the `import "C"` line is referred to as the `preamble` and is treated as a C-header during the compilation of the C code in the program (this is special in cgo).
 
 The next interesting thing to notice is the `#cgo` directive. These are used to set the `CFLAGS`, `CPPFLAGS`, `CXXFLAGS` and `LDFLAGS` as required by the program. Since we do not have any explicit libraries to link (yet), the `LDFLAGS` directive above is left empty.
 
@@ -82,7 +82,9 @@ X = 2
 X = 3
 ```
 
-### Embedding the interpreter
+To recap, we have successfully executed a C `printf` invoked from `golang`.
+
+### Embedding the python interpreter
 
 Note: Assuming that we are using Python2.7.
 
