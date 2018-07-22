@@ -1,7 +1,13 @@
 ---
 layout: default
-title: About
+title: sabhiram:about
 permalink: /about/
 ---
 
-TODO: About me... I am boring...
+<br><br>
+
+## Fluency
+
+## Preferences
+
+## Opinions
