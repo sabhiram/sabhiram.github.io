@@ -125,6 +125,56 @@ cgo-gcc-prolog:47:33: warning: unused variable 'a' [-Wunused-variable]
 
 To recap, we now know how to call C functions from `go`, and we also have linked against `libpython`.
 
-### Importing modules
+### Importing (python) modules (from go)
 
+In order to use any python module, the module needs to be loaded into the interpreter. This is typically done in python programs using the `import <module>` statement. `libpython` exposes a method `PyImport_ImportModule(<name>)` which will import modules by `<name>` that exist in the `PYTHONPATH`. Since this is a C method, it does not return a typical `err error`, instead it returns `null -> nil` when the module is not found.
 
+To import the module specified by the file `generator.py`, all we need to do is invoke the `PyImport_ImportModule` method taking care to correctly convert types so the C-library is happy. If this fails, make sure that `generator.py` can be found in the `PYTHONPATH` set in the current environment.
+
+```golang
+    module := C.PyImport_ImportModule(C.CString("generator"))
+    if unsafe.Pointer(module) == nil {
+        fmt.Printf("Unable to import `generator.py`\n")
+        os.Exit(1)
+    }
+```
+
+### Grabbing functions from modules
+
+The above code gets us a reference to the `generator` module and verifies that it is valid.  Next, we define a small wrapper to call the desired function within the imported module. This needs to be implemented as a C wrapper as the `PyObject_CallMethod` is variadic in C, requiring the go code to know the argument list ahead of time.
+
+```c++
+PyObject*
+call_method_wrapper(PyObject *module, char *method)
+{
+    return PyObject_CallMethod(module, method, NULL);
+}
+```
+
+Notice that `PyObject_CallMethod` above does not invoke the `method` with any arguments (hence the NULL as parameter #3). All this does is return a opaque `PyObject*` that represents the return value of the `method`. Calling this from `go` becomes fairly straightforward:
+
+```golang
+    gen := C.call_method_wrapper(module, C.CString("random_generator"))
+    if gen == nil {
+        fmt.Printf("Fatal error: generator is null!\n")
+        os.Exit(1)
+    }
+```
+
+`gen` here is a `unsafe.Pointer` in the go realm and a `PyObject*` that points to an instance of a generator in the `C` world.  Now we can yield values from it until the generator is empty.
+
+Now for the prestige:
+
+```golang
+    for l := C.PyIter_Next(gen); unsafe.Pointer(l) != nil; l = C.PyIter_Next(gen) {
+        fmt.Printf("Next random number: %d\n", C.PyInt_AsLong(l))
+    }
+```
+
+`C.PyIter_Next(gen)` is identical to calling `gen.next()` in python to grab the next value from the generator. In order to detect the end of the generator, we simply test the next value against nil.
+
+Since we know the type of value being generated, we can convert the opaque `PyObject*` into an appropriate type (for example with `C.PyInt_AsLong(l)`).
+
+### Conclusion
+
+TODO
