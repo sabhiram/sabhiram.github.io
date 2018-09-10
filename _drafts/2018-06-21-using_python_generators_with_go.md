@@ -4,11 +4,11 @@ categories: Python C Go
 tags: python, go, c, development
 ---
 
-A while back I had written a nifty text fuzzer in python which generated deterministic pseudo-random command streams for anyone willing to listen. The fuzzer in question would get constructed and queried for a [`generator`](https://wiki.python.org/moin/Generators) which would endlessly [`yield`]() lines for the caller to do with as they saw fit.
+A while back I had written a nifty text fuzzer in python that generates a  deterministic pseudo-random stream of text for anyone willing to listen. The method employed a [`python generator`](https://wiki.python.org/moin/Generators) which would [`yield`]() lines to the caller until it ran out.
 
-Recently, while pondering re-writing the fuzzer using `go`, I came across a thought: what if we could do the best of both?
+Recently, while pondering rewriting the fuzzer using `go`, I came across a thought: what if we could use the best of both worlds?
 
-In theory, our `go` application can invoke the python code directly using something like `os.Exec(...)`, but that involves writing a python program that interacts with the fuzzer library. In this post we explore importing a python library using `C` with `libpython` and wrapping the boilerplate-ish `C` code with some `go` code. While this is probably not all that useful in practice, I found the exercise rather meditative.
+In theory, our `go` application can invoke the python interpreter using something like `os.Exec(...)`, but that leaves the fate of the generator iteration in python-land, what if we wanted to retain control of the generator from go? In this post, we explore importing a simple python generator using `libpython` and writing minimal wrapper code to be able to iterate the generator from go. While this is probably not all that useful in practice, I found the exercise rather meditative.
 
 The code referenced throughout this post can be found at [this git repo](https://github.com/sabhiram/py-c-go).
 
@@ -42,9 +42,11 @@ for v in g:
     print "Got random value: %d" % (v)
 ```
 
+Now we need a way to invoke the above `random_generator()` using the C/Python API. Before we dive into that, a brief foray into `cgo`.
+
 ### A little cgo
 
-Now we need a way to invoke the `random_generator` python function using the C/Python API. Before we attempt that, lets get familiar with `cgo`.  A very basic go program that can call standard C library functions would resemble:
+Below is a simple `go` program that invokes a simple C function (`print_x(int)`):
 
 ```golang
 // File: simple_c.go
@@ -70,11 +72,12 @@ func main() {
 }
 ```
 
-The important thing to note is the `import "C"` shenanigans. The `C` import exposes all underlying C functions (standard or linked against explicitly). The comment (or comments) that come directly before the `import "C"` line is referred to as the `preamble` and is treated as a C-header during the compilation of the C code in the program (this is special in cgo).
+The `C` import exposes all underlying C functions (standard or linked against explicitly). The comment (or comments) that come directly before the `import "C"` line is referred to as the `preamble` and is treated as a C-header during the compilation of the C code in the program (this is special in cgo).
 
 The next interesting thing to notice is the `#cgo` directive. These are used to set the `CFLAGS`, `CPPFLAGS`, `CXXFLAGS` and `LDFLAGS` as required by the program. Since we do not have any explicit libraries to link (yet), the `LDFLAGS` directive above is left empty.
 
-Which when run from a terminal would result in:
+When the above program is run, we see the three invocations of `printf` resulting in writes to stdout.
+
 ```shell
 $ go run simple_c.go
 X = 1
@@ -82,13 +85,13 @@ X = 2
 X = 3
 ```
 
-To recap, we have successfully executed a C `printf` invoked from `golang`.
+At this point, have successfully executed a C `printf` invoked from `golang`.
 
 ### Embedding the python interpreter
 
 Note: Assuming that we are using Python2.7.
 
-The first modification required to our simple cgo example is to `#include <python2.7/Python.h>`, and in order to do so we also must tell the linker that we intend to link against the python2.7 libraries. Using the C/Python API also requires the calling code to initialize and cleanup the python interpreter (as well as correctly reference count objects).
+The first modification required to our simple cgo example is to `#include <python2.7/Python.h>`. To do so, we also must tell the linker that we intend to link against the python2.7 libraries. Using the C/Python API also requires the calling code to initialize and cleanup the python interpreter (as well as correctly reference count objects).
 
 ```golang
 // File: simple_py.go
@@ -111,7 +114,7 @@ func main() {
 }
 ```
 
-The above program should cleanly exit and compile with no errors (ignore the `unused variable "a"` warning for now.
+The above program should cleanly exit and compile with no errors (ignore the `unused variable "a"` warning for now).
 
 ```shell
 $ go run simple_py.go
@@ -120,4 +123,8 @@ cgo-gcc-prolog:35:33: warning: unused variable 'a' [-Wunused-variable]
 cgo-gcc-prolog:47:33: warning: unused variable 'a' [-Wunused-variable]
 ```
 
+To recap, we now know how to call C functions from `go`, and we also have linked against `libpython`.
+
 ### Importing modules
+
+
