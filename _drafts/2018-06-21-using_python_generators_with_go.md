@@ -8,7 +8,9 @@ A while back I had written a nifty text fuzzer in python that generates a  deter
 
 Recently, while pondering rewriting the fuzzer using `go`, I came across a thought: what if we could use the best of both worlds?
 
-In theory, our `go` application can invoke the python interpreter using something like `os.Exec(...)`, but that leaves the fate of the generator iteration in python-land, what if we wanted to retain control of the generator from go? In this post, we explore importing a simple python generator using `libpython` and writing minimal wrapper code to be able to iterate the generator from go. While this is probably not all that useful in practice, I found the exercise rather meditative.
+In theory, our `go` application can invoke the python interpreter using something like `os.Exec(...)`, but that leaves the fate of the generator iteration in python-land. What if we wanted to retain control of the generator from go?
+
+In this post, we explore importing a simple python generator using `libpython` and writing minimal wrapper code to be able to iterate the generator from go. While this is probably not all that useful in practice, I found the exercise rather meditative.
 
 The code referenced throughout this post can be found at [this git repo](https://github.com/sabhiram/py-c-go).
 
@@ -177,4 +179,9 @@ Since we know the type of value being generated, we can convert the opaque `PyOb
 
 ### Conclusion
 
-TODO
+In this post we investigated:
+1. Wrapping and invoking simple C functions from `golang`.
+2. Including `libpython` with cgo `LDFLAGS`.
+3. Load a python file as a module from `golang`.
+4. Grab an instance of, and use the `generator`.
+
