@@ -184,4 +184,3 @@ In this post we investigated:
 2. Including `libpython` with cgo `LDFLAGS`.
 3. Load a python file as a module from `golang`.
 4. Grab an instance of, and use the `generator`.
-
