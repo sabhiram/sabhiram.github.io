@@ -180,7 +180,8 @@ Since we know the type of value being generated, we can convert the opaque `PyOb
 ### Conclusion
 
 In this post we investigated:
+
 1. Wrapping and invoking simple C functions from `golang`.
 2. Including `libpython` with cgo `LDFLAGS`.
-3. Load a python file as a module from `golang`.
-4. Grab an instance of, and use the `generator`.
+3. Loading a python file as a module from `golang`.
+4. Grabbing an instance of, and using the python `generator` from go.
