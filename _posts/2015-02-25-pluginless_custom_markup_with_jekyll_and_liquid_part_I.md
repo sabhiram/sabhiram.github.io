@@ -133,7 +133,7 @@ The quick <b>brown</b> fox jumps over the lazy dog
 
 ### Making things a little easier
 
-Let's say we end up quoting things a whole bunch. We would have to add the `openQuote` and `closeQuote` variables to each and every post's `Front Matter`. This is not very sane, but fortunately Jekyll allows us to specify page wide [`defaults`](http://jekyllrb.com/docs/configuration/#front-matter-defaults).
+Lets say we end up quoting things a whole bunch. We would have to add the `openQuote` and `closeQuote` variables to each and every post's `Front Matter`. This is not very sane, but fortunately Jekyll allows us to specify page wide [`defaults`](http://jekyllrb.com/docs/configuration/#front-matter-defaults).
 
 This would allow us to define the blocks of HTML we wish to inject, up-front in the config file. For example, to apply the `openQuote` and `closeQuote` variables to all "posts", your `_config.yml` file would resemble:
 {% highlight yaml %}

@@ -7,13 +7,13 @@ enableChat: false
 
 Doing stuff remotely is pretty awesome. Nothing is cooler than banging a bunch of keys on a terminal, to result in the machine 3 feet away roar to life. Yes, it is within my reach, but hey where is the fun in that?!?
 
-The process by which one might remotely power-on a machine (on the same LAN) is referred to as [`Wake-on-LAN (WOL)`](http://en.wikipedia.org/wiki/Wake-on-LAN). This process involves sending a specific payload over the local area network that a target machine is connected to. This payload is encoded with the MAC Address of the target machine. 
+The process by which one might remotely power-on a machine (on the same LAN) is referred to as [`Wake-on-LAN (WOL)`](http://en.wikipedia.org/wiki/Wake-on-LAN). This process involves sending a specific payload over the local area network that a target machine is connected to. This payload is encoded with the MAC Address of the target machine.
 
-It is also possible to wake machines not directly in your LAN, but this topic is out of the scope of this post. There are many security implications of allowing machines to be woken up via a network broadcast, therefore most machines will expose a setting in their BIOS to enable or disable remote power on. 
+It is also possible to wake machines not directly in your LAN, but this topic is out of the scope of this post. There are many security implications of allowing machines to be woken up via a network broadcast, therefore most machines will expose a setting in their BIOS to enable or disable remote power on.
 
 ### How does it work?
 
-Assuming that the `Wake-on-LAN` settings have been enabled in a machine's BIOS, and said machine has a MAC address of `00:11:22:33:44:55`, we can power this machine on by sending a [`Magic Packet`](http://en.wikipedia.org/w/index.php?title=Wake-on-LAN&redirect=no#Magic_packet) encoded with it's MAC address.
+Assuming that the `Wake-on-LAN` settings have been enabled in a machine's BIOS, and said machine has a MAC address of `00:11:22:33:44:55`, we can power this machine on by sending a [`Magic Packet`](http://en.wikipedia.org/w/index.php?title=Wake-on-LAN&redirect=no#Magic_packet) encoded with its MAC address.
 
 These packets are not protocol specific, and therefore can be sent using just about any network protocol. However, these are typically sent as a [`UDP Packet`](http://en.wikipedia.org/wiki/User_Datagram_Protocol).
 

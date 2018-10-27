@@ -174,7 +174,7 @@ func New(opts *Options) (func(string), func() string) {
 }
 {% endhighlight %}
 
-In the above code, we instantiate a local copy of the `Options` (which is default initialized), and then assign it to the value pointed to by `opts` (as long as it's not nil). We then deal with setting the default value for the indent spacing. Note that since `options` is in the scope that contains the `_enter()` and `_exit()` functions - they will have access to it's members.
+In the above code, we instantiate a local copy of the `Options` (which is default initialized), and then assign it to the value pointed to by `opts` (as long as it's not nil). We then deal with setting the default value for the indent spacing. Note that since `options` is in the scope that contains the `_enter()` and `_exit()` functions - they will have access to its members.
 
 ### Honor thy options!
 
@@ -206,7 +206,7 @@ type Options struct {
     // which enables nesting by prepending "SpacesPerIndent" number of
     // spaces per level nested.
     DisableNesting      bool
-    SpacesPerIndent     int    
+    SpacesPerIndent     int
 
     // Private member, used to keep track of how many levels of nesting
     // the current trace functions have navigated.
@@ -247,7 +247,7 @@ func New(opts *Options) (func(string), func() string) {
     // Define our enter function
     _enter := func() string {
         defer _incrementDepth()
-        
+
         fnName := "<unknown>"
         // Skip this function, and fetch the PC and file for its parent
         pc, _, _, ok := runtime.Caller(1)
@@ -321,6 +321,6 @@ Here are some issues with the implementation so far:
 
 ### Wrapping up
 
-Whew, that was a fun journey. If you found this interesting and want to dig deeper, or use `tracey` like functionality in your `go` project, take a look at [`sabhiram/go-tracey`](https://github.com/sabhiram/go-tracey). 
+Whew, that was a fun journey. If you found this interesting and want to dig deeper, or use `tracey` like functionality in your `go` project, take a look at [`sabhiram/go-tracey`](https://github.com/sabhiram/go-tracey).
 
 The `go-tracey` library implements the above missing pieces and then some. There are comprehensive examples and unit-tests to validate all parts of the library's functionality. Feedback welcome!
