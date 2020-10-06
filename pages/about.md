@@ -27,4 +27,4 @@ permalink: /about/
 
 ## Opinions
 
-0. ¯\_(ツ)_/¯
+0. `¯\_(ツ)_/¯`
