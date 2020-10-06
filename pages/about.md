@@ -9,22 +9,26 @@ permalink: /about/
 
 ## Fluency
 
-0. Fluently speak body language.
-1. Compilers are generally better than interpreters, unless you need something promptly.
-2. Interpreters are better than compilers, unless you need something fast.
-3. For work: C/C++, Python, and the occasional JS for some goofy frontend tool.
-4. For play: Golang, Python, C++, Solidity, JS.
-5. Operating system agnostic, once you build drivers for windows - anything is fun and easy.
+<ol start="0">
+    <li>Fluently speak body language.</li>
+    <li>Compilers are generally better than interpreters, unless you need something promptly.</li>
+    <li>Interpreters are better than compilers, unless you need something fast.</li>
+    <li>For work: C/C++, Python, and the occasional JS for some goofy frontend tool.</li>
+    <li>For play: Golang, Python, C++, Solidity, JS.</li>
+    <li>Operating system agnostic, once you build drivers for windows - anything is fun and easy.</li>
+</ol>
 
 ## Preferences
 
-0. Ask for forgiveness rather than permission.
-1. Drive fast, driver faster.
-2. Compilers are good at their jobs, delegate to them.
-3. Trust but verify other people's code.
-4. Treat your code as written by others.
-5. Commit often, break things, take ownership.
+<ol start="0">
+    <li>Ask for forgiveness rather than permission.</li>
+    <li>Drive fast, driver faster.</li>
+    <li>Compilers are good at their jobs, delegate to them.</li>
+    <li>Trust but verify other people's code.</li>
+    <li>Treat your code as written by others.</li>
+    <li>Commit often, break things, take ownership.</li>
+</ol>
 
 ## Opinions
 
-0. `¯\_(ツ)_/¯`
+`¯\_(ツ)_/¯`
