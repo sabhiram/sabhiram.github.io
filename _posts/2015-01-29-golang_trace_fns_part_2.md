@@ -2,7 +2,7 @@
 title: "Go Function Tracing, Part II"
 categories: Go
 tags: Go
-enableChat: true
+enableChat: false
 ---
 
 This is **Part II** of a two-part post on Function Tracing in `Go`.
